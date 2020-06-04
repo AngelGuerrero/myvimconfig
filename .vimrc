@@ -1,35 +1,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"    -> Plugins
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=500
+
+set fenc=utf-8
 
 " Set numbers
 set number
@@ -46,7 +21,7 @@ set autoread
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+"set so=7
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en' 
@@ -69,7 +44,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -102,22 +77,22 @@ set showmatch
 set mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
+"set noerrorbells
+"set novisualbell
 set t_vb=
 set tm=500
 
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+"set foldcolumn=1
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
 " optional reset cursor on start:
 augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
+    au!
+    "autocmd VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 
@@ -131,14 +106,22 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 set termguicolors
+
+"Miramare settings
 let g:miramare_enable_italic = 1
 let g:miramare_disable_italic_comment = 1
-set background=dark
+"colorscheme miramare
+
+" Darkspace settings
+"let g:darkspace_italics=1
+"let g:airline_theme='darkspace'
+"colorscheme darkspace
+
+"set background=dark
 "colorscheme palenight
 "let g:lightline = { 'colorscheme': 'palenight' }
-"colorscheme miramare
 "colorscheme Tomorrow-Night
-colorscheme base16-dracula
+"colorscheme base16-dracula
 "colorscheme base16-cupertino
 "colorscheme base16-onedark
 "colorscheme base16-seti
@@ -146,23 +129,25 @@ colorscheme base16-dracula
 "colorscheme base16-gruvbox-dark-hard
 "colorscheme base16-chalk
 "colorscheme atom-dark
+"colorscheme pencil
+
+
+" Set colorscheme before open editor
+"autocmd BufRead * :colorscheme miramare
+"autocmd BufRead * :colorscheme nightfly
+"autocmd BufRead * :colorscheme codedark
+"let g:lightline = { 'colorscheme': 'nightfly' }
+"let g:lightline = { 'colorscheme': 'one dark' }
+"let g:lightline = { 'colorscheme': 'seoul256' }
+"let g:lightline = { 'colorscheme': 'one light' }
 
 syntax enable 
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -182,17 +167,20 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+"Auto indent
+set ai 
+"Smart indent
+set si 
+"Wrap lines
+set wrap 
 
 
 """"""""""""""""""""""""""""""
@@ -211,9 +199,12 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
+let maplocalleader = "-"
 
 " Fast saving
-nnoremap <silent><leader>w :w!<cr>:echo "Saved!"<cr>
+nnoremap <leader>w :w!<cr>:echo "Saved!"<cr>
+inoremap <leader>w <esc>:w!<cr>:echo "Saved!"<cr>
+vnoremap <leader>w :w!<cr>:echo "Saved!"<cr>
 
 " Exit
 nnoremap <silent><leader>q :q!<cr>
@@ -221,27 +212,21 @@ nnoremap <silent><leader>q :q!<cr>
 " Saving and exit
 nnoremap <silent><leader>x :wq!<cr>
 
+
 " Clear highlinghting
 nnoremap <silent><leader><space> :noh<cr>
 
-" Install plugins
-map <silent><F5> :w<cr>:so $MYVIMRC<cr>:PlugInstall<cr>
-
-" Clean plugins
-map <silent><F6> :w<cr>:PlugClean<cr>
-
-" Save and reload source
-map <silent><F4> :w<cr>:so $MYVIMRC<cr>
-
-" Search for replace
-nnoremap <F3> :%s/
-
-" Select one word
+" Select one word using CONTROL-D
 nnoremap <C-D> viw
 
-" White space after line
-"nnoremap <C-Enter> o<esc>k
+" Add space below current line
 nnoremap gi <esc>o<esc>k
+
+" Add space above current line
+nnoremap ga O<esc>j<esc>
+
+" Add a space after a character
+nnoremap gag a<space><esc>h
 
 "Select one word and copy
 inoremap <C-C> <esc>lbvey
@@ -253,47 +238,120 @@ nnoremap <C-C> lbvey
 nnoremap <leader>d x
 
 " Quck edit .vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+nnoremap <leader>ve :vsplit $MYVIMRC<cr>
 
 " Clear the termial output
-nnoremap <leader>e :! clear<cr>
+nnoremap <F8> :! clear<cr>
 
-" Execute programs
-nnoremap <leader>r :!ruby %<cr>
-nnoremap <leader>j :!node %<cr>
+" Search for replace
+map <F3> :%s/
 
 " surround a word with "
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-
-" surround a paragraph with "
-nnoremap <leader>c" v$di""<esc>hp<esc>
-
-" Surround with ruby interpolation
-nnoremap <leader># viw<esc>a}<esc>bi#{<esc>lel
 
 " Escape from insert mode
 inoremap jk <esc>
 vnoremap jk <esc>
 
-" Only javascript maps
-autocmd FileType javascript nnoremap <buffer>ññ A;<esc>
-autocmd FileType javascript inoremap <buffer>ññ <esc>A;<esc>
+" My snippets
+"
+" Vim
+augroup filetype_vim
+  autocmd!
 
-autocmd FileType javascript inoremap <buffer>ñv <esc>A,<cr>
-autocmd FileType javascript nnoremap <buffer>ñv <esc>A,<cr>
+  " Save and reload source
+  map <F4> :w $MYVIMRC<cr>:so $MYVIMRC<cr>
 
-autocmd FileType javascript inoremap <buffer>,e <esc>A {<esc>o}<esc>O
+  " Install plugins
+  map <F5> <F4>:PlugInstall<cr>
 
-autocmd FileType javascript iabbrev conl console.log
+  " Clean plugins
+  map <F6> <F4>:PlugClean<cr>
+
+  " Update plugins
+  map <F9> :PlugUpdate<cr>
+augroup END
+
+augroup fileType_erlang
+  autocmd!
+  "
+  " Add a period at the end of the line
+  autocmd FileType erlang nnoremap <buffer>ññ A.<esc>
+  autocmd FileType erlang inoremap <buffer>ññ <esc>A.<esc>
+  "
+  " New line
+  autocmd FileType erlang nnoremap <buffer>ñl A,o
+  autocmd FileType erlang inoremap <buffer>ñl <esc>A,<esc>o
+  "
+  " Enter body function
+  autocmd FileType erlang nnoremap <buffer><leader>e A-><cr>
+  autocmd FileType erlang inoremap <buffer><leader>e <esc>A-><cr>
+  "
+  " Compile a erlang file
+  " FIX: Fix the next line for compile and execute a erlang file
+  "autocmd FileType erlang nnoremap <buffer><F10> :!erl -noshell -s :<c-u>normal! %
+  "
+  " Abbrevation
+  autocmd FileType erlang iabbrev iofw io:fwrite
+augroup END
+
+
+" Ruby
+augroup filetype_ruby
+  autocmd!
+
+  autocmd FileType ruby map <F10> :!clear && ruby %<cr>
+  " 
+  " Surround with ruby interpolation
+  autocmd FileType ruby nnoremap <buffer><leader>se viw<esc>a}<esc>bi#{<esc>lel
+  autocmd FileType ruby vnoremap <buffer><leader>se di#{<esc>pa}<esc>lel
+  autocmd FileType ruby inoremap <buffer><leader>se #{}<esc>i
+  "
+  " Enter meanwhile user is writing
+  autocmd FileType ruby inoremap <buffer><leader>e <esc>oend<esc>O
+  autocmd FileType ruby nnoremap <buffer><leader>e <esc>oend<esc>O
+augroup END
+
+
+" Python
+augroup filetype_python
+  autocmd!
+
+  autocmd FileType python map <F10> :!clear && python %<cr>
+  autocmd FileType python inoremap <leader>e <esc>o
+  autocmd FileType python nnoremap <leader>e <esc>o
+augroup END
+
+" Typescript
+augroup filetype_typescript
+  autocmd!
+
+  autocmd FileType typescript map <F10> :!clear && tsc %<cr>
+augroup END
+
+" Javascript 
+augroup filetype_javascript, fileType_vue
+  autocmd!
+
+  autocmd FileType javascript map <F10> :!node %<cr>
+  "
+  " Snippets
+  autocmd FileType javascript nnoremap <buffer>ññ A;<esc>
+  autocmd FileType javascript inoremap <buffer>ññ <esc>A;<esc>
+
+  autocmd FileType javascript inoremap <buffer>ñv <esc>A,<cr>
+  autocmd FileType javascript nnoremap <buffer>ñv <esc>A,<cr>
+  "
+  " if statement
+  autocmd FileType javascript inoremap <buffer>,e <esc>A {<esc>o}<esc>O
+  "
+  " console
+  autocmd FileType javascript iabbrev conl console.log
+augroup END
 
 " Writes test text
 iabbrev lorem Vivamus vulputate tortor ut nunc rutrum, vel luctus augue molestie. Vestibulum lobortis eget quam sed luctus. Nunc posuere vehicula mauris, at semper nulla mattis in. Nullam quis molestie diam. Sed laoreet dui risus, ut vestibulum orci tincidunt mollis. Aliquam quam dui, viverra vitae dictum eget, bibendum mattis risus. Cras gravida sapien massa, ac maximus leo sollicitudin ac. In consequat sollicitudin purus, ac mattis nibh tempor at. Phasellus tristique risus ac lectus porttitor fermentum.
-
-
-" Local commands examples
-"autocmd FileType javascript nnoremap <buffer><localleader>c I// <esc>
-"autocmd FileType python nnoremap <buffer><localleader>c I# <esc>
-
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -302,10 +360,6 @@ iabbrev lorem Vivamus vulputate tortor ut nunc rutrum, vel luctus augue molestie
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
-map <c-space> ?
-
-" Disable highlight when <leader><cr> is pressed
-"map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -350,7 +404,10 @@ catch
 endtry
 
 " Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * 
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \ exe "normal! g'\"" |
+  \ endif 
 
 
 """"""""""""""""""""""""""""""
@@ -360,8 +417,42 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=\ File:\ %F\ -\ Line:\ %l\ -\ Column:\ %c\ -\ Total:\ %L
 
+" Some funky status bar code its seems
+" https://stackoverflow.com/questions/9065941/how-can-i-change-vim-status-line-colour
+set laststatus=2            " set the bottom status bar
+set noshowmode
+
+function! ModifiedColor()
+    if &mod == 1
+        hi statusline guibg=OrangeRed4 ctermfg=8 guifg=White ctermbg=15
+    else
+        hi statusline guibg=Green ctermfg=8 guifg=DarkSlateGray ctermbg=15
+    endif
+endfunction
+
+au InsertLeave,InsertEnter,BufWritePost   * call ModifiedColor()
+" default the statusline when entering Vim
+hi statusline guibg=White ctermfg=8 guifg=DarkSlateGray ctermbg=15
+
+" Formats the statusline
+set statusline=%f                           " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+set statusline+=%h      "help file flag
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]      
+"modified flag
+
+set statusline+=%r      "read only flag
+
+set statusline+=\ %=                        " align left
+set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ Col:%c                    " current column
+set statusline+=\ Buf:%n                    " Buffer number
+set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -403,32 +494,43 @@ map <leader>s? z=
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scribble
-" map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-" map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim colors brackets
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1
 
+" Indent guide
+"let g:indent_guides_enable_on_vim_startup = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ALE Linters
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \}
+
+let g:ale_fixers = {
+      \ 'javascript': ['eslint']
+      \}
+let g:ale_fixers = ['eslint']
+let g:ale_fix_on_save = 1
+"let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5 --print-width=60 --semi=false'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autocomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ruby_autocomplete_solargraph = '$GEM_HOME/gems/solargraph-0.39.7/bin/'
+"let g:completor_ruby_omni_trigger = '([$\w]{1,}|\.[\w]*|::[$\w]*)$'
+
+
+let g:ycm_semantic_triggers = {
+      \ 'elm' : ['.'],
+      \}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -476,6 +578,11 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'vim-ruby/vim-ruby'
+
+" Lightline
+Plug 'itchyny/lightline.vim'
+
 " NERDTree
 Plug 'preservim/nerdtree'
 
@@ -492,7 +599,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'scrooloose/nerdcommenter'
 
 " Colorscheme themes
-"Plug 'ParamagicDev/vim-medic_chalk'
+Plug 'ParamagicDev/vim-medic_chalk'
 
 "Colorscheme miramare
 Plug 'franbach/miramare'
@@ -500,16 +607,16 @@ Plug 'franbach/miramare'
 " Polyglot
 Plug 'sheerun/vim-polyglot'
 
-" Vim colors xcode
+" Colorscheme xcode
 Plug 'arzg/vim-colors-xcode'
 
-" Colors sonokai
+" Colorscheme sonokai
 Plug 'sainnhe/sonokai'
 
-" Colors Base16
+" Colorscheme Base16
 Plug 'chriskempson/base16-vim'
 
-" Colors Base16
+" Colorscheme Base16
 Plug 'drewtempelmeyer/palenight.vim'
 
 " Autoclose 
@@ -520,5 +627,89 @@ Plug 'tpope/vim-surround'
 
 " vim rainbow 
 Plug 'frazrepo/vim-rainbow'
+
+" Colorscheme Eldar
+Plug 'agude/vim-eldar'
+
+" Colorscheme Darkspace
+Plug 'yuqio/vim-darkspace'
+
+" Colorscheme Wombat
+Plug 'gryf/wombat256grf'
+
+" Colorscheme jummidark
+" Colorscheme for JS
+"Plug 'jcherven/jummidark.vim'
+
+" Colorscheme pulumi dark
+Plug 'pgavlin/pulumi.vim'
+
+"Colorscheme pencil
+Plug 'Mizux/vim-colorschemes'
+
+Plug 'eemed/sitruuna.vim'
+
+" Colorscheme nebula for rust
+Plug 'stillwwater/vim-nebula'
+
+" Colorshceme dogrun
+" good theme for ruby
+Plug 'wadackel/vim-dogrun'
+
+"Colorscheme
+Plug 'stulzer/mitormk-laser'
+"Colorscheme
+Plug 'atahabaki/archman-vim'
+
+"Colorscheme Awsome theme
+Plug 'bluz71/vim-nightfly-guicolors'
+
+"Colorscheme moonlight
+" not for ruby
+Plug 'lewis6991/moonlight.vim'
+
+Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'w0rp/ale'
+
+Plug 'dense-analysis/ale'
+
+Plug 'prettier/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'css', 'json']
+      \}
+
+Plug 'Shadowsith/vim-ruby-autocomplete'
+
+Plug 'ycm-core/YouCompleteMe'
+
+Plug 'elmcast/elm-vim'
+
+"Plug 'theJian/elm.vim'
+
+Plug 'mattn/emmet-vim'
+
+" Visual studio color scheme
+Plug 'tomasiser/vim-code-dark'
+
+" Vue support
+Plug 'posva/vim-vue'
+
+" Colorscheme GitHub
+Plug 'cormacrelf/vim-colors-github'
+
+" Colorscheme lucid
+"
+" Buen color para ruby, 
+Plug 'cseelus/vim-colors-lucid'
+
+" Colorscheme vim one
+Plug 'rakr/vim-one'
+
+" Colorscheme tender
+Plug 'jacoborus/tender.vim'
+
+" Colorscheme afterglow
+Plug 'danilo-augusto/vim-afterglow'
 
 call plug#end()
