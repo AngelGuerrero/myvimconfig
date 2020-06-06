@@ -108,38 +108,16 @@ endif
 set termguicolors
 
 "Miramare settings
-let g:miramare_enable_italic = 1
-let g:miramare_disable_italic_comment = 1
 "colorscheme miramare
-
-" Darkspace settings
-"let g:darkspace_italics=1
-"let g:airline_theme='darkspace'
-"colorscheme darkspace
-
-"set background=dark
-"colorscheme palenight
-"let g:lightline = { 'colorscheme': 'palenight' }
-"colorscheme Tomorrow-Night
-"colorscheme base16-dracula
-"colorscheme base16-cupertino
-"colorscheme base16-onedark
-"colorscheme base16-seti
-"colorscheme base16-github
-"colorscheme base16-gruvbox-dark-hard
-"colorscheme base16-chalk
-"colorscheme atom-dark
-"colorscheme pencil
-
+"let g:miramare_enable_italic = 1
+"let g:miramare_disable_italic_comment = 1
 
 " Set colorscheme before open editor
+set background=light
 "autocmd BufRead * :colorscheme miramare
 "autocmd BufRead * :colorscheme nightfly
 "autocmd BufRead * :colorscheme codedark
-"let g:lightline = { 'colorscheme': 'nightfly' }
-"let g:lightline = { 'colorscheme': 'one dark' }
-"let g:lightline = { 'colorscheme': 'seoul256' }
-"let g:lightline = { 'colorscheme': 'one light' }
+autocmd BufRead * :colorscheme one
 
 syntax enable 
 
@@ -270,7 +248,7 @@ augroup filetype_vim
   map <F6> <F4>:PlugClean<cr>
 
   " Update plugins
-  map <F9> :PlugUpdate<cr>
+  "map <F9> :PlugUpdate<cr>
 augroup END
 
 augroup fileType_erlang
@@ -301,7 +279,7 @@ augroup END
 augroup filetype_ruby
   autocmd!
 
-  autocmd FileType ruby map <F10> :!clear && ruby %<cr>
+  autocmd FileType ruby map <F9> :!clear && ruby %<cr>
   " 
   " Surround with ruby interpolation
   autocmd FileType ruby nnoremap <buffer><leader>se viw<esc>a}<esc>bi#{<esc>lel
@@ -318,7 +296,7 @@ augroup END
 augroup filetype_python
   autocmd!
 
-  autocmd FileType python map <F10> :!clear && python %<cr>
+  autocmd FileType python map <F9> :!clear && python %<cr>
   autocmd FileType python inoremap <leader>e <esc>o
   autocmd FileType python nnoremap <leader>e <esc>o
 augroup END
@@ -327,14 +305,14 @@ augroup END
 augroup filetype_typescript
   autocmd!
 
-  autocmd FileType typescript map <F10> :!clear && tsc %<cr>
+  autocmd FileType typescript map <F9> :!clear && tsc %<cr>
 augroup END
 
 " Javascript 
 augroup filetype_javascript, fileType_vue
   autocmd!
 
-  autocmd FileType javascript map <F10> :!node %<cr>
+  autocmd FileType javascript map <F9> :!clear && node %<cr>
   "
   " Snippets
   autocmd FileType javascript nnoremap <buffer>ññ A;<esc>
@@ -515,6 +493,8 @@ let g:ale_fixers = {
       \}
 let g:ale_fixers = ['eslint']
 let g:ale_fix_on_save = 1
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
 "let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5 --print-width=60 --semi=false'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -599,25 +579,25 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'scrooloose/nerdcommenter'
 
 " Colorscheme themes
-Plug 'ParamagicDev/vim-medic_chalk'
+"Plug 'ParamagicDev/vim-medic_chalk'
 
 "Colorscheme miramare
-Plug 'franbach/miramare'
+"Plug 'franbach/miramare'
 
 " Polyglot
 Plug 'sheerun/vim-polyglot'
 
 " Colorscheme xcode
-Plug 'arzg/vim-colors-xcode'
+"Plug 'arzg/vim-colors-xcode'
 
 " Colorscheme sonokai
-Plug 'sainnhe/sonokai'
+"Plug 'sainnhe/sonokai'
 
 " Colorscheme Base16
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 
 " Colorscheme Base16
-Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'drewtempelmeyer/palenight.vim'
 
 " Autoclose 
 Plug 'cohama/lexima.vim'
@@ -629,44 +609,44 @@ Plug 'tpope/vim-surround'
 Plug 'frazrepo/vim-rainbow'
 
 " Colorscheme Eldar
-Plug 'agude/vim-eldar'
+"Plug 'agude/vim-eldar'
 
 " Colorscheme Darkspace
-Plug 'yuqio/vim-darkspace'
+"Plug 'yuqio/vim-darkspace'
 
 " Colorscheme Wombat
-Plug 'gryf/wombat256grf'
+"Plug 'gryf/wombat256grf'
 
 " Colorscheme jummidark
 " Colorscheme for JS
 "Plug 'jcherven/jummidark.vim'
 
 " Colorscheme pulumi dark
-Plug 'pgavlin/pulumi.vim'
+"Plug 'pgavlin/pulumi.vim'
 
 "Colorscheme pencil
-Plug 'Mizux/vim-colorschemes'
+"Plug 'Mizux/vim-colorschemes'
 
-Plug 'eemed/sitruuna.vim'
+"Plug 'eemed/sitruuna.vim'
 
 " Colorscheme nebula for rust
-Plug 'stillwwater/vim-nebula'
+"Plug 'stillwwater/vim-nebula'
 
 " Colorshceme dogrun
 " good theme for ruby
-Plug 'wadackel/vim-dogrun'
+"Plug 'wadackel/vim-dogrun'
 
 "Colorscheme
-Plug 'stulzer/mitormk-laser'
+"Plug 'stulzer/mitormk-laser'
 "Colorscheme
-Plug 'atahabaki/archman-vim'
+"Plug 'atahabaki/archman-vim'
 
 "Colorscheme Awsome theme
 Plug 'bluz71/vim-nightfly-guicolors'
 
 "Colorscheme moonlight
 " not for ruby
-Plug 'lewis6991/moonlight.vim'
+"Plug 'lewis6991/moonlight.vim'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -683,11 +663,11 @@ Plug 'Shadowsith/vim-ruby-autocomplete'
 
 Plug 'ycm-core/YouCompleteMe'
 
-Plug 'elmcast/elm-vim'
+"Plug 'elmcast/elm-vim'
 
 "Plug 'theJian/elm.vim'
 
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 
 " Visual studio color scheme
 Plug 'tomasiser/vim-code-dark'
@@ -696,7 +676,7 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'posva/vim-vue'
 
 " Colorscheme GitHub
-Plug 'cormacrelf/vim-colors-github'
+"Plug 'cormacrelf/vim-colors-github'
 
 " Colorscheme lucid
 "
@@ -707,9 +687,9 @@ Plug 'cseelus/vim-colors-lucid'
 Plug 'rakr/vim-one'
 
 " Colorscheme tender
-Plug 'jacoborus/tender.vim'
+"Plug 'jacoborus/tender.vim'
 
 " Colorscheme afterglow
-Plug 'danilo-augusto/vim-afterglow'
+"Plug 'danilo-augusto/vim-afterglow'
 
 call plug#end()
